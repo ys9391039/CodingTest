@@ -11,7 +11,7 @@ public class Main {
 		
 		try {
 			Scanner scanner = new Scanner(System.in);
-			System.out.println("Insert number?");
+			System.out.println("Insert number??");
 			//int inputNumber = scanner.nextInt();
 			BigInteger inputNumber = scanner.nextBigInteger();
 			
