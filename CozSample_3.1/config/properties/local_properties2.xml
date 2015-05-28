@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config-root>
+<db>
+	<jdbc>
+		<url>jdbc:log4jdbc:mysql://211.198.116.21:3306/test?characterSetResults=utf8&amp;characterEncoding=utf8&amp;autoReconnectForPools=true</url>
+		<username>dad</username>
+		<password>8d74fa</password>
+	</jdbc>
+</db>
+<system>
+	<fileUploadTempDir>D:\temp\테스트</fileUploadTempDir>
+</system>
+</config-root>
