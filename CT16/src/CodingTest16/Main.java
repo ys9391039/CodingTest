@@ -124,15 +124,6 @@ public class Main {
 	}
 }
 
-final class EHashMap<K, V> implements HashMap<K, V>{
-	public put(Map<K,V> map){
-		HashMap map = super.
-		if (){
-			super
-		}
-		
-	}
-}
 
 final class MVC<K,V> implements Comparator<K> {
 
