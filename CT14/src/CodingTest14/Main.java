@@ -1,6 +1,8 @@
 package CodingTest14;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Main {
 
@@ -11,51 +13,73 @@ public class Main {
 		String time = "11:04:23";
 		int count = 0;
 //		System.out.println(times.length);
-		for(String t : times){
-//			System.out.println(t);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		Date startDate = null;
+		Date endDate = null;
+		Date targetDate = null;
+		
+		for(String t: times){
 			String[] tArr = t.split(" ");
 			String startTime = tArr[0];
 			String endTime = tArr[1];
 			
-//			String[] startTimeArr = startTime.split(":");
-//			String[] endTimeArr = endTime.split(":");
-//			String[] timeArr = time.split(":");
+			try{
+				startDate = sdf.parse(startTime);
+				endDate = sdf.parse(endTime);
+				targetDate = sdf.parse(time);
+				
+				if(startDate.compareTo(targetDate)<=0 && endDate.compareTo(targetDate)>=0)
+					count++;
+				
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+			}
+		}
+		
+		
+		
+/*		Calendar startCL = Calendar.getInstance();
+		Calendar endCL = Calendar.getInstance();
+		Calendar targetCL = Calendar.getInstance();
+		for(String t : times){
+			String[] tArr = t.split(" ");
+			String startTime = tArr[0];
+			String endTime = tArr[1];
 			
-			Calendar startCL = Calendar.getInstance();
-//			startCL.set(Calendar.HOUR, Integer.parseInt(startTimeArr[0]));
-//			startCL.set(Calendar.MINUTE, Integer.parseInt(startTimeArr[1]));
-//			startCL.set(Calendar.SECOND, Integer.parseInt(startTimeArr[2]));
 			startCL = setCalendar(startCL, startTime);
-					
-			Calendar endCL = Calendar.getInstance();
-//			endCL.set(Calendar.HOUR, Integer.parseInt(endTimeArr[0]));
-//			endCL.set(Calendar.MINUTE, Integer.parseInt(endTimeArr[1]));
-//			endCL.set(Calendar.SECOND, Integer.parseInt(endTimeArr[2]));
 			endCL = setCalendar(endCL, endTime);
-			
-			Calendar targetCL = Calendar.getInstance();
-//			targetCL.set(Calendar.HOUR, Integer.parseInt(timeArr[0]));
-//			targetCL.set(Calendar.MINUTE, Integer.parseInt(timeArr[1]));
-//			targetCL.set(Calendar.SECOND, Integer.parseInt(timeArr[2]));
 			targetCL = setCalendar(targetCL, time);
+			
+			if (startCL == null || endCL == null || targetCL == null){
+				System.out.println("Time problem");
+				break;
+			}
 			
 			System.out.println(startCL.compareTo(targetCL));
 			System.out.println(endCL.compareTo(targetCL));
 			
 			if (startCL.compareTo(targetCL) <= 0 && endCL.compareTo(targetCL) >= 0)
 				count++;
-		}
+		}*/
 		
 		System.out.println("count:"+count);
 		
 	}
 	
 	public static Calendar setCalendar(Calendar cl, String t){
-		String[] tArr = t.split(":");
-		cl.set(Calendar.HOUR, Integer.parseInt(tArr[0]));
-		cl.set(Calendar.MINUTE, Integer.parseInt(tArr[1]));
-		cl.set(Calendar.SECOND, Integer.parseInt(tArr[2]));
-		
+		try{
+			String[] tArr = t.split(":");
+			cl.set(Calendar.YEAR, 2000);
+			cl.set(Calendar.MONTH, 1);
+			cl.set(Calendar.DAY_OF_YEAR, 1);
+			cl.set(Calendar.HOUR, Integer.parseInt(tArr[0]));
+			cl.set(Calendar.MINUTE, Integer.parseInt(tArr[1]));
+			cl.set(Calendar.SECOND, Integer.parseInt(tArr[2]));
+		}catch(Exception e){
+			//System.out.println(e.getMessage());
+			return null;
+		}
 		return cl;
 	}
 
