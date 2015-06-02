@@ -1,9 +1,9 @@
-package CodingTest8;
+package _BST;
+
 
 public class Main {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	
+	public static void main(String[] args){
 		BST bst = new BST();
 		bst.insertBST('G');
 		bst.insertBST('D');
