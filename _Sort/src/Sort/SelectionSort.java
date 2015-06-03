@@ -2,24 +2,19 @@ package Sort;
 
 public class SelectionSort {
 
-	public int[] sort(int[] dataArray){
-		int minIndex;
-		for(int i=0;i<dataArray.length -1;i++){
-			minIndex = i;
-			for(int j=i+1;j<dataArray.length;j++){
-				if (dataArray[minIndex]>dataArray[j]){
-					minIndex = j;
+	public int[] sort(int[] a){
+		int m;
+		for(int i=0;i<a.length -1;i++){
+			m = i;
+			for(int j=i+1;j<a.length;j++){
+				if (a[m]>a[j]){
+					m = j;
 				}
 			}
-			int tmp = dataArray[minIndex];
-			dataArray[minIndex] = dataArray[i];
-			dataArray[i] = tmp;
-			
-			System.out.print(">");
-			for(int data:dataArray)
-				System.out.print(data);
-			System.out.println();
+			int tmp = a[m];
+			a[m] = a[i];
+			a[i] = tmp;
 		}
-		return dataArray;
+		return a;
 	}
 }

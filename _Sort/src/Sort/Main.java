@@ -5,7 +5,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		int a[] = {9,8,7,4,2,1,3,5,6};
+		int a[] = {9,8,7,5,4,2,1,1,3,3,5,6};
 		//int a[] = {69,10,30,2,16,8,31,22};
 		
 		for(int i=0;i<a.length;i++)
@@ -14,10 +14,10 @@ public class Main {
 		
 //		SelectionSort sort = new SelectionSort();
 //		BubbleSort sort = new BubbleSort();
-//		QuickSort sort = new QuickSort();
+		QuickSort sort = new QuickSort();
 //		InsertionSort sort = new InsertionSort();
 //		ShellSort sort = new ShellSort();
-		MergeSort sort = new MergeSort();
+//		MergeSort sort = new MergeSort();
 		int[] b = sort.sort(a);
 
 		for(int i=0;i<b.length;i++)
