@@ -21,6 +21,8 @@ public class Main {
 			String result = "No";
 			//System.out.println(inputNumber.and(inputNumber.subtract(BigInteger.valueOf(1))));
 			
+//			if(inputNumber>0 && (inputNumber&(inputNumber-1)) == 0)
+			
 			if (inputNumber.compareTo(BigInteger.ZERO)>0 
 					&& inputNumber.and(inputNumber.subtract(BigInteger.valueOf(1))).compareTo(BigInteger.ZERO)==0)
 			{
