@@ -1,0 +1,154 @@
+@chartset "utf-8";
+/* ----------------------------------- 주문서 ----------------------------------- */
+/* 버튼 */
+.btn_area{padding:0 7px 0;margin-bottom:20px}
+.btn_check button{background-color:#F14B59;border:1px solid #CB1929;color:#fff;border-radius:4px;display:block;font-size:14px;font-weight:bold;line-height:13px;padding:11px 0;width:100%}
+.btn_continue button{background-color:#00bfdd;border:1px solid #0090a6;color:#fff}
+
+/* 라운딩 박스 */
+.info_table{background-color:#fff;width:100%;margin:0}
+.info_table tbody tr th{font-size:12px;font-weight:normal;padding:2px 0;text-align:left;color:#8e8e8e;width:80px}
+.info_table tbody tr td{font-size:12px;font-weight:normal;padding:2px 9px;text-align:left;color:#333}
+
+/* 탭 */
+.payment_tab{border:none}
+.payment_tab li{float:left;width:50%;text-align:center;margin-bottom:5px}
+.payment_tab li a{display:block;padding:6px 0;font-size:12px;font-weight:bold;color:#707070;line-height:15px;background:#eee;border:1px solid #cfcdcd;border-radius:5px 0 0 5px}
+.payment_tab li:last-child a{border-radius:0 5px 5px 0}
+.payment_tab li a.on{color:#fff;background-color:#00bfdd;border-color:#0090a6}
+
+/* 결제 테이블 */
+.app_box{padding:0 7px}
+.app_box .app_table{width:100%}
+.app_box .app_table tbody tr th{font-size:12px;font-weight:normal;padding:7px 0;text-align:left;border-bottom:1px solid #d9d9d9}
+.app_box .app_table tbody tr th label{display:block;margin-top:3px}
+.app_box .app_table tbody tr th em{font-size:11px;font-weight:normal}
+.app_box .app_table tbody tr td{font-size:12px;font-weight:bold;padding:7px 0;text-align:center;border-bottom:1px solid #d9d9d9}
+.app_box .app_table tbody tr.last th,
+.app_box .app_table tbody tr.last td{border:none}
+
+/* 하단 그라데이션 테이블 */
+.total_box{box-shadow: inset 0px 2px 3px rgba(0,0,0,0.1)}
+.total_box .total_table{width:100%}
+.total_box .total_table tfoot tr th{font-size:14px;font-weight:bold;padding:9px 7px;text-align:left;border-top:1px solid #d9d9d9}
+.total_box .total_table tfoot tr td{font-size:14px;font-weight:bold;padding:9px 7px;text-align:right;color:#f14b59;border-top:1px solid #d9d9d9}
+
+/* 주문하실상품 */
+.order_list li{overflow:hidden;position:relative;margin-bottom:7px}
+.order_list li .img_box{position:absolute;top:0;left:0}
+.order_list li .img_box img{height:60px}
+.order_list li .txt_box{margin-left:68px}
+.order_list li .txt_box .product{min-height:47px;padding-right:10px}
+.order_list li .txt_box .product h4{line-height:14px;font-size:12px;color:#333;max-height:27px;overflow:hidden}
+.order_list li .txt_box .product .option{line-height:13px;font-size:11px;color:#999}
+.order_list li .txt_box .price{height:14px;line-height:13px}
+.order_list li .txt_box .price strong{line-height:15px;font-size:14px;color:#333}
+.price_list{border-top:1px solid #d9d9d9;padding-top:5px}
+.price_list .total_price_table{width:100%}
+.price_list .total_price_table tbody tr th{font-size:12px;font-weight:normal;padding:2px 0;text-align:left}
+.price_list .total_price_table tbody tr td{font-size:12px;font-weight:bold;padding:2px 0;text-align:right}
+
+/* 주문자정보 */
+.order_info .order_change{position:absolute;top:9px;right:7px}
+.order_info .order_change2{position:absolute;top:9px;left:7px}
+
+/* 배송지정보 */
+.indis{background:url("/images/common/icon/icon_check.png") no-repeat left 2px;background-size:12px auto;color:#333333;font-size:12px;padding-left:14px;position:absolute;left:10px;top:15px}
+.indis_noimg{background-size:12px auto;color:#333333;font-size:12px;padding-left:14px;position:absolute;left:0px;top:5px}
+.basic_delivery{border-width:1px 0 1px 0;border-style:solid;border-color:#5c5c5c;background-color:#e7e9ec;margin-bottom:8px}
+.basic_delivery li{position:relative;font-size:11px;padding:10px 6px}
+.basic_delivery li .basic{color:#777778}
+.basic_delivery li .address{color:#333;width:85%}
+.basic_delivery li .name_hp{color:#333}
+.basic_delivery li .btn_txt{position:absolute;right:11px;top:32%}
+.address_table {margin-bottom:6px}
+.address_table tbody tr th{vertical-align:top}
+.address_table tbody tr th .chk{background:url("/images/common/icon/icon_check.png") no-repeat right 2px;background-size:11px auto;padding-right:14px}
+.address_table tbody tr td{padding:3px 0}
+.address_table tbody tr td .num_phone .select_box{float:left;width:25%}
+.address_table tbody tr td .num_phone .select_box2{float:left;width:20%}
+.address_table tbody tr td .num_phone .select_box3{float:left;width:100%}
+.address_table tbody tr td .num_phone span{display:block;float:left;line-height:22px;text-align:center;width:5%}
+.address_table tbody tr td .num_phone input{float:left;width:25%;height:21px}
+.address_table tbody tr td .post{margin-top:-3px;overflow:hidden;padding:3px 0 6px;position:relative}
+.address_table tbody tr td .post .inp{width:25%}
+.address_table tbody tr td .post span{display:block;float:left;line-height:22px;text-align:center;width:5%}
+.address_table tbody tr td .btn_txt{display:block;float:left;letter-spacing:-1px;width:38%}
+.address_table tbody tr td .addr .ta_wrap{padding:4px 0 0 5px}
+.address_table tbody tr td .addr .ta_wrap textarea{height:17px}
+.post_find{background-color:#e7e9ec;border-width:1px 0 1px 0;border-style:solid;border-color:#5c5c5c;padding:10px 6px;margin-bottom:7px}
+.post_find h6{color:#333;font-size:11px;margin-bottom:4px;font-weight:normal}
+.post_find .search{padding:0 46px 5px 0;position:relative}
+.post_find .search div{overflow:hidden}
+.post_find .search div .inp{font-size:11px}
+.post_find .search .btn_txt{position:absolute;right:0;top:0}
+.post_find .search .btn_txt2{position:absolute;right:0;top:0}
+.post_find .result{background-color:#fff}
+.post_find .result ul{border:1px solid #cacaca}
+.post_find .result ul li{border-bottom:1px solid #cacaca;position:relative}
+.post_find .result ul li:last-child{border:none}
+.post_find .result ul li a{color:#333;display:block;font-size:11px;overflow:hidden;padding:10px 10px 9px}
+.post_find .result ul li a p.addr{float:left;padding-right:60px}
+.post_find .result ul li a p.post{font-weight:bold;margin-top:-8px;position:absolute;right:10px;top:50%}
+.post_find .result ul li p.nosearch_post{color:#333;display:block;font-size:12px;overflow:hidden;padding:10px 10px}
+
+/* 주문/결제 및 배송 정보 수신 */
+.info_received{border-top:1px solid #d9d9d9;padding:10px 0 0 0}
+.info_received .title{font-size:12px;color:#8e8e8e;margin-bottom:7px;font-weight:normal}
+.info_received ul.received_chk{overflow:hidden;border-bottom:1px solid #d9d9d9;padding-bottom:10px;margin-bottom:10px}
+.info_received ul.received_chk li{float:left;margin-right:13px}
+.info_received ul.received_chk li label{font-size:12px;color:#333}
+
+/* 배송시 요구사항 */
+.sale_app_info .info_box{padding:0}
+.delivery_demand{margin-bottom:5px;overflow:hidden} /* 20140319 추가 */
+.delivery_demand .title{font-size:12px;color:#8e8e8e;margin-bottom:7px;font-weight:normal}
+.delivery_demand .select_box{margin-bottom:5px} /* 20140319 수정 */
+.delivery_demand .inp{width:99.5%} /* 20140319 추가 */
+
+/* 결제하기 */
+.payment .info_box{padding:7px 0 0;margin-bottom:14px}
+.payment ul.payment_tab{margin:0 7px}
+.credit_payment .app_table tbody tr th{color:#8e8e8e;font-size:12px;font-weight:normal;padding:7px 0;text-align:left;border:none}
+.credit_payment .app_table tbody tr td{color:#4e4e4e;font-size:12px;font-weight:bold;padding:7px 0;text-align:right;border:none}
+
+/* 주문동의 */
+.agree_box{padding:0 7px 14px}
+.agree_box label{font-size:12px;color:#4c4c4c;letter-spacing:-0.07em}
+
+/* 주문번호 */
+.order_number{background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.0, #fff), color-stop(1.0, #fff));box-shadow:inset 0px 3px 5px -2px rgba(0,0,0,0.3);border-bottom:1px solid #494949;background-color:#fff}
+.number_box{box-shadow:inset 0px -3px 2px -2px rgba(0,0,0,0.3);padding:19px 0 20px 90px;background:url("/images/common/bg/order_number.png") no-repeat 20px 54%;background-size:59px auto}
+.number_box h2{margin-bottom:9px;font-size:11px;font-weight:normal;color:#4e4e4e;line-height:15px}
+.number_box p{font-size:13px;color:#f14b57;line-height:14px;font-weight:bold}
+
+/* 주문상품 정보 */
+.complete_prd li{margin-bottom:0}
+
+/* 배송정보 */
+.complete_info thead tr th{border-bottom:1px solid #d9d9d9;padding:2px 0 7px 0;color:#8e8e8e;font-size:12px;font-weight:normal;text-align:left;width:80px;vertical-align:top}
+.complete_info thead tr td{border-bottom:1px solid #d9d9d9;padding:2px 9px 7px 9px;color:#333;font-size:12px;font-weight:normal;text-align:left}
+.complete_info tbody tr th{padding:4px 0}
+.complete_info tbody tr td{padding:4px 9px}
+.complete_info tbody tr.first th,
+.complete_info tbody tr.first td{padding-top:7px}
+.complete_info tbody tr td .btn_txt{display:block;letter-spacing:-1px;width:38%}
+.complete_info tbody tr td .btn_txt2{display:block;letter-spacing:-1px;width:100%}
+
+/* 결제수단 */
+.payment_type_info .info_box{margin-bottom:13px}
+.payment_price_table{width:100%}
+.payment_price_table tbody tr th{color:#333;font-size:12px;font-weight:normal;padding:4px 0;text-align:left;border:none}
+.payment_price_table tbody tr th em{font-size:11px}
+.payment_price_table tbody tr th .total{font-weight:bold;font-size:13px}
+.payment_price_table tbody tr td .total{font-weight:bold;color:#f14b59;font-size:15px}
+.payment_price_table tbody tr td{color:#333;font-size:12px;font-weight:bold;padding:4px 0;text-align:right;border:none}
+.payment_price_table tbody tr.last th{border-bottom:1px solid #d9d9d9;padding-bottom:8px}
+.payment_price_table tbody tr.last td{border-bottom:1px solid #d9d9d9;padding-bottom:8px}
+
+.payment_type_table{width:100%}
+.payment_type_table tbody tr th{color:#333;font-size:12px;font-weight:normal;padding:4px 0;text-align:left;border:none}
+.payment_type_table tbody tr th .payment_type{color:#f14b57}
+.payment_type_table tbody tr td{color:#333;font-size:12px;font-weight:bold;padding:4px 0;text-align:left;border:none}
+.payment_type_table tbody tr.first th,
+.payment_type_table tbody tr.first td{padding-top:8px}

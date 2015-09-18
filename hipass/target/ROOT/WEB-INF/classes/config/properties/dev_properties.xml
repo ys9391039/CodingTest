@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="jdbc.url">jdbc:log4jdbc:mysql://211.198.116.21:3306/test?characterSetResults=utf8&amp;characterEncoding=utf8&amp;autoReconnectForPools=true</entry>
+    <entry key="jdbc.username">dad</entry>
+    <entry key="jdbc.password">8d74fa</entry>
+    
+    <entry key="domain.url">http://sample.corealism.com</entry>
+    <entry key="system.fileUploadTempDir">/tmp</entry>
+    <entry key="system.fileUploadDir">/CozPlatform</entry>
+    <entry key="system.application.sessionKey">a3jdhus8334uhd</entry>
+</properties>

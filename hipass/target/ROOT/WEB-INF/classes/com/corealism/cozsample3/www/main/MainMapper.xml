@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.corealism.cozsample3.www.main.MainMapper"> 
+
+	<select id='selectPagingList' parameterType="TbPagingTest" resultType='TbPagingTest'>
+		SELECT
+			idx
+			, user_name userName
+			, phone_number phoneNumber
+			, status_code statusCode
+			, reg_date regDate
+			, upd_date updDate
+		FROM tb_paging_test
+		ORDER BY idx DESC 	
+		LIMIT #{start}, #{end}
+	</select>
+
+	
+</mapper>
