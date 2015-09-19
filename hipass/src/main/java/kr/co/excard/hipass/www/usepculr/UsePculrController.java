@@ -66,7 +66,7 @@ public class UsePculrController extends CommonController{
 				logger.debug("tmpArr.length:::::"+tmpArr.length);
 				String txSerialArr[] = txSerials.split("\\|");
 				
-				int rnd = (int) (Math.random()*txSerialArr.length);
+				int rnd = (int) (Math.random()*17);
 				System.out.println("rnd:::::"+rnd);
 				
 				String billAmount = nf.format(Integer.valueOf(tmpArr[5]));
