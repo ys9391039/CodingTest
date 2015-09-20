@@ -1,0 +1,9 @@
+@chartset "utf-8";
+
+/* reset */
+html{height:100%;}
+body{height:100%;}
+body,div,form,p,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,em,p,span,textarea,pre,label,fieldset,th,td,button,a,input,select,hr{
+	font-family:HelveticaNeue,arial,'Apple SD Neo Gothic','Apple Gothic',sans-serif;font-size:12;
+}
+table{border-collapse:collapse;border-spacing:0;}
