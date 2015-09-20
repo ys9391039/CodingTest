@@ -27,16 +27,69 @@ public class MainController extends CommonController{
 	protected Log logger = LogFactory.getLog(this.getClass());
 	private	final static String fileRootDir = Constants.configProp.getProperty(Constants.FILE_ROOT_DIR);
 	
-	@RequestMapping(value = "/main.do")
-	public ModelAndView main() throws CustomException {				
+	@RequestMapping(value = "/step1.do")
+	public ModelAndView step1() throws CustomException {				
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("main/main");
+		modelAndView.setViewName("main/step1");
+		return modelAndView;		
+	}
+	
+	@RequestMapping(value = "/step1Ajax.json")
+	public ModelAndView step1Ajax(HttpServletRequest req) throws CustomException {				
+		
+		String carType = StringUtil.reqNullCheck(req, "carType");
+		String cardName = StringUtil.reqNullCheck(req, "cardName");
+		String cardNumber = StringUtil.reqNullCheck(req, "cardNumber");
+
+		File file = new File(fileRootDir+"basicData.txt");
+		logger.debug("file:::::"+file);
+		
+		FileOutputStream fos = null;
+		Writer out = null;
+		//FileWriter fw = null;
+		BufferedWriter bw = null;
+
+		try{
+			boolean ret = file.createNewFile();
+			if (!ret)
+				file.delete();
+			
+			fos = new FileOutputStream(file);
+			out = new OutputStreamWriter(fos, "UTF-8");
+			bw = new BufferedWriter(out);
+			//fw = new FileWriter(file, true);
+			
+			String basicInfo = carType + "|" + cardName + "|" + cardNumber;
+			bw.write(basicInfo);
+			bw.flush();
+		
+		}catch(Exception e){
+			System.out.println("Error :"+e.getMessage());
+			throw new CustomException(1001, e.getMessage());
+		}finally{
+			try{fos.close();}catch(Exception e){System.out.println(e.getMessage());}
+			try{out.close();}catch(Exception e){System.out.println(e.getMessage());}
+			try{bw.close();}catch(Exception e){System.out.println(e.getMessage());}
+		}
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("resultCode", 0);
 		return modelAndView;		
 	}
 
-	@RequestMapping(value = "/mainAjax.json")
-	public ModelAndView mainAjax(HttpServletRequest req) throws CustomException {				
+	@RequestMapping(value = "/step2.do")
+	public ModelAndView step2(HttpServletRequest req) throws CustomException {				
+		String receipts = StringUtil.reqNullCheck(req, "receipts");
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("receipts", receipts);
+		modelAndView.setViewName("main/step2");
+		return modelAndView;		
+	}
+	
+	@RequestMapping(value = "/step2Ajax.json")
+	public ModelAndView step2Ajax(HttpServletRequest req) throws CustomException {				
 		
 		String billInfoList = StringUtil.reqNullCheck(req, "billInfo");
 		logger.debug("billInfo:::::"+billInfoList);
@@ -49,11 +102,9 @@ public class MainController extends CommonController{
 		
 		FileOutputStream fos = null;
 		Writer out = null;
-		//FileWriter fw = null;
 		BufferedWriter bw = null;
 		
 		try{
-			
 			boolean ret = file.createNewFile();
 			if (!ret)
 				file.delete();
@@ -61,7 +112,6 @@ public class MainController extends CommonController{
 			fos = new FileOutputStream(file);
 			out = new OutputStreamWriter(fos, "UTF-8");
 			bw = new BufferedWriter(out);
-			//fw = new FileWriter(file, true);
 			
 			for(String billInfo : billInfoArr){
 				logger.debug("billInfo:::::"+billInfo);
@@ -72,22 +122,11 @@ public class MainController extends CommonController{
 		
 		}catch(Exception e){
 			System.out.println("Error :"+e.getMessage());
+			throw new CustomException(1002, e.getMessage());
 		}finally{
-			try{
-				fos.close();
-			}catch(Exception e){
-				System.out.println(e.getMessage());
-			}
-			try{
-				out.close();
-			}catch(Exception e){
-				System.out.println(e.getMessage());
-			}
-			try{
-				bw.close();
-			}catch(Exception e){
-				System.out.println(e.getMessage());
-			}
+			try{fos.close();}catch(Exception e){System.out.println(e.getMessage());}
+			try{out.close();}catch(Exception e){System.out.println(e.getMessage());}
+			try{bw.close();}catch(Exception e){System.out.println(e.getMessage());}
 		}
 		
 		ModelAndView modelAndView = new ModelAndView();

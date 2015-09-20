@@ -3,6 +3,6 @@
 <body>
 <h2>Have a nice day!!</h2>
 <br/>
-<a href="/main/main.do">영수증 정보 입력</a>
+<a href="/main/step1.do">기본 정보 입력</a>
 </body>
 </html>

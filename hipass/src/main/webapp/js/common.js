@@ -66,7 +66,7 @@ function cfCheckPhoneNumber(txt) {
 }
 
 /***************************************************************
- * 영문만 존재하는지 체크
+ * 영문/숫자만 존재하는지 체크
  * @param str
  * @param errMessage
  ****************************************************************/
@@ -75,6 +75,23 @@ function cfCheckOnlyEngWithNumber(str) {
 	for(var i = 0; i < str.length; i++) {
 		var chk = str.substring(i,i+1); 
 		if(!chk.match(/[0-9]|[a-z]|[A-Z]/)) {
+			return false;
+		} 
+	}
+	
+	return true;
+}
+
+/***************************************************************
+ * 숫자만 존재하는지 체크
+ * @param str
+ * @param errMessage
+ ****************************************************************/
+function cfCheckOnlyNumber(str) {
+	
+	for(var i = 0; i < str.length; i++) {
+		var chk = str.substring(i,i+1); 
+		if(!chk.match(/[0-9]/)) {
 			return false;
 		} 
 	}

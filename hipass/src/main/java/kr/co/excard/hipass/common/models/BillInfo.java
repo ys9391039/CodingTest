@@ -12,22 +12,20 @@ public class BillInfo extends BaseModel {
 	private String billAmount;
 	private String tgType1;
 	private String tgType2;
+	private String tgType3;
+	private String tgType4;
+	private String tgType5;
 	private Integer carType;
 	private String billAmount1;
 	private String billAmount2;
+	private String billAmount3;
+	private String billAmount4;
+	private String billAmount5;
 	private String totalAmount;
 	private String taxAmount;
 	private String cardName;
 	private String cardNumber;
 	private String txSerial;
-	
-	
-	public String getTotalAmount() {
-		return totalAmount;
-	}
-	public void setTotalAmount(String totalAmount) {
-		this.totalAmount = totalAmount;
-	}
 	public String getServiceName() {
 		return serviceName;
 	}
@@ -64,6 +62,12 @@ public class BillInfo extends BaseModel {
 	public void setTgName(String tgName) {
 		this.tgName = tgName;
 	}
+	public String getBillAmount() {
+		return billAmount;
+	}
+	public void setBillAmount(String billAmount) {
+		this.billAmount = billAmount;
+	}
 	public String getTgType1() {
 		return tgType1;
 	}
@@ -76,17 +80,29 @@ public class BillInfo extends BaseModel {
 	public void setTgType2(String tgType2) {
 		this.tgType2 = tgType2;
 	}
+	public String getTgType3() {
+		return tgType3;
+	}
+	public void setTgType3(String tgType3) {
+		this.tgType3 = tgType3;
+	}
+	public String getTgType4() {
+		return tgType4;
+	}
+	public void setTgType4(String tgType4) {
+		this.tgType4 = tgType4;
+	}
+	public String getTgType5() {
+		return tgType5;
+	}
+	public void setTgType5(String tgType5) {
+		this.tgType5 = tgType5;
+	}
 	public Integer getCarType() {
 		return carType;
 	}
 	public void setCarType(Integer carType) {
 		this.carType = carType;
-	}
-	public String getBillAmount() {
-		return billAmount;
-	}
-	public void setBillAmount(String billAmount) {
-		this.billAmount = billAmount;
 	}
 	public String getBillAmount1() {
 		return billAmount1;
@@ -99,6 +115,30 @@ public class BillInfo extends BaseModel {
 	}
 	public void setBillAmount2(String billAmount2) {
 		this.billAmount2 = billAmount2;
+	}
+	public String getBillAmount3() {
+		return billAmount3;
+	}
+	public void setBillAmount3(String billAmount3) {
+		this.billAmount3 = billAmount3;
+	}
+	public String getBillAmount4() {
+		return billAmount4;
+	}
+	public void setBillAmount4(String billAmount4) {
+		this.billAmount4 = billAmount4;
+	}
+	public String getBillAmount5() {
+		return billAmount5;
+	}
+	public void setBillAmount5(String billAmount5) {
+		this.billAmount5 = billAmount5;
+	}
+	public String getTotalAmount() {
+		return totalAmount;
+	}
+	public void setTotalAmount(String totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 	public String getTaxAmount() {
 		return taxAmount;
@@ -124,6 +164,8 @@ public class BillInfo extends BaseModel {
 	public void setTxSerial(String txSerial) {
 		this.txSerial = txSerial;
 	}
+	
+	
 	
 	
 	
