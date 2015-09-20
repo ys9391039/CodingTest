@@ -29,7 +29,7 @@ public class UsePculrController extends CommonController{
 	private	final static String carType = Constants.configProp.getProperty(Constants.CAR_TYPE);
 	private	final static String cardName = Constants.configProp.getProperty(Constants.CARD_NAME);
 	private	final static String cardNumber = Constants.configProp.getProperty(Constants.CARD_NUMBER);
-	private	final static String txSerials = Constants.configProp.getProperty(Constants.TX_SERIAL);
+	//private	final static String txSerials = Constants.configProp.getProperty(Constants.TX_SERIAL);
 	
 	@RequestMapping(value = "/UsePculrReceiptPrint.do")
 	public ModelAndView UsePculrReceiptPrint() throws CustomException {				
@@ -64,27 +64,40 @@ public class UsePculrController extends CommonController{
 				String tmpArr[] = tmp.split("\\|");
 //				System.out.println(tmpArr[1]);
 				logger.debug("tmpArr.length:::::"+tmpArr.length);
-				String txSerialArr[] = txSerials.split("\\|");
+				//String txSerialArr[] = txSerials.split("\\|");
 				
-				int rnd = (int) (Math.random()*17);
-				System.out.println("rnd:::::"+rnd);
+				//int rnd = (int) (Math.random()*17);
+				//System.out.println("rnd:::::"+rnd);
 				
-				String billAmount = nf.format(Integer.valueOf(tmpArr[5]));
+				String billAmount = nf.format(Integer.valueOf(tmpArr[6]));
+				String billAmount1 = nf.format(Integer.valueOf(tmpArr[9]));
+				String billAmount2 = "";
+				if (!"".equals(tmpArr[10]))
+					billAmount2 = nf.format(Integer.valueOf(tmpArr[10]));
+				String totalAmount = nf.format(Integer.valueOf(tmpArr[11]));
+				String taxAmount = nf.format(Integer.valueOf(tmpArr[12]));
 				
-				if (tmpArr.length == 6){
+				//if (tmpArr.length == 9){
 					BillInfo billInfo = new BillInfo();
-					billInfo.setRegionName(tmpArr[0]);
-					billInfo.setTgTel(tmpArr[1]);
-					billInfo.setTgAccount(tmpArr[2]);
-					billInfo.setPayDate(tmpArr[3]);
-					billInfo.setTgName(tmpArr[4]);
-					billInfo.setCarType(Integer.valueOf(carType));
+					billInfo.setServiceName(tmpArr[0]);
+					billInfo.setRegionName(tmpArr[1]);
+					billInfo.setTgTel(tmpArr[2]);
+					billInfo.setTgAccount(tmpArr[3]);
+					billInfo.setPayDate(tmpArr[4]);
+					billInfo.setTgName(tmpArr[5]);
 					billInfo.setBillAmount(billAmount);
+					billInfo.setTgType1(tmpArr[7]);
+					billInfo.setTgType2(tmpArr[8]);
+					billInfo.setCarType(Integer.valueOf(carType));
+					billInfo.setBillAmount1(billAmount1);
+					billInfo.setBillAmount2(billAmount2);
+					billInfo.setTotalAmount(totalAmount);
+					billInfo.setTaxAmount(taxAmount);
 					billInfo.setCardName(cardName);
 					billInfo.setCardNumber(cardNumber);
-					billInfo.setTxSerial(txSerialArr[rnd]);
+					billInfo.setTxSerial(tmpArr[13]);
 					billInfoList.add(billInfo);
-				}
+				//}
 			}
 			
 		}catch(Exception e){
