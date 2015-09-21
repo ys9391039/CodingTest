@@ -228,7 +228,7 @@ function f_saveInfo() {
 			<td align='center'><input type='text' name='' size='10' value='1900' disabled></td>
 			<td align='center'><input type='text' name='' size='11' value='KEC' disabled><br/>
 				<input type='text' name='' size='10' value='1900' disabled></td>
-			<td align='center'><input type='text' name='' size='11' value='NCE' disabled><br/>
+			<td align='center'><input type='text' name='' size='11' value='CNE' disabled><br/>
 				<input type='text' name='' size='10' value='100' disabled></td>
 			<td align='center'><input type='text' name='' size='11' value='' disabled><br/>
 				<input type='text' name='' size='10' value='' disabled></td>
@@ -251,7 +251,7 @@ function f_saveInfo() {
 			<td align='center'><input type='text' name='billAmount' size='10' value='1900'></td>
 			<td align='center'><input type='text' name='tgType1' size='11' value='KEC'><br/>
 				<input type='text' name='billAmount1' size='10' value='1900'></td>
-			<td align='center'><input type='text' name='tgType2' size='11' value='NCE'><br/>
+			<td align='center'><input type='text' name='tgType2' size='11' value='CNE'><br/>
 				<input type='text' name='billAmount2' size='10' value='100'></td>
 			<td align='center'><input type='text' name='tgType3' size='11' value=''><br/>
 				<input type='text' name='billAmount3' size='10' value=''></td>
@@ -274,19 +274,19 @@ function f_saveInfo() {
 			<td align='center'><input type='text' name='tgAccount' size='15' value=''></td>
 			<td align='center'><input type='text' name='payDate' size='30' value=''></td>
 			<td align='center'><input type='text' name='tgName' size='15' value=''></td>
-			<td align='center'><input type='text' name='billAmount' size='10' value=''></td>
+			<td align='center'><input type='text' name='billAmount' size='10' maxlength="9" value=''></td>
 			<td align='center'><input type='text' name='tgType1' size='11' value=''><br/>
-				<input type='text' name='billAmount1' size='10' value=''></td>
+				<input type='text' name='billAmount1' size='10' maxlength="9" value=''></td>
 			<td align='center'><input type='text' name='tgType2' size='11' value=''><br/>
-				<input type='text' name='billAmount2' size='10' value=''></td>
+				<input type='text' name='billAmount2' size='10' maxlength="9" value=''></td>
 			<td align='center'><input type='text' name='tgType3' size='11' value=''><br/>
-				<input type='text' name='billAmount3' size='10' value=''></td>
+				<input type='text' name='billAmount3' size='10' maxlength="9" value=''></td>
 			<td align='center'><input type='text' name='tgType4' size='11' value=''><br/>
-				<input type='text' name='billAmount4' size='10' value=''></td>
+				<input type='text' name='billAmount4' size='10' maxlength="9" value=''></td>
 			<td align='center'><input type='text' name='tgType5' size='11' value=''><br/>
-				<input type='text' name='billAmount5' size='10' value=''></td>
-			<td align='center'><input type='text' name='totalAmount' size='11' value=''><br/>
-				<input type='text' name='taxAmount' size='10' value='0'></td>
+				<input type='text' name='billAmount5' size='10' maxlength="9" value=''></td>
+			<td align='center'><input type='text' name='totalAmount' size='11' maxlength="9" value=''><br/>
+				<input type='text' name='taxAmount' size='10' maxlength="9" value='0'></td>
 			<td align='center'><input type='text' name='tgSerial' size='20' value=''></td>
 		</tr>
 	<%} %>

@@ -44,6 +44,13 @@ function f_saveInfo() {
 		}
 	});
 }
+
+$(document).ready( function() {
+	//alert(location.protocol);
+	if (location.protocol == "http:")
+		location.href = "https://"+location.host;
+});
+
 </script>
 </head>
 <body>
