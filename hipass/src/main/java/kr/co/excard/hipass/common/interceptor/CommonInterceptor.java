@@ -21,6 +21,15 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		logger.debug("preHandle>>>>>");
 		//response.sendRedirect("/login/login.do");
 		
+		String uri = request.getRequestURI();
+		if (uri.indexOf("step1") > 0) return true;
+			
+		if (!"OK".equals(request.getSession().getAttribute("Login"))){
+			//String returnUrl = request.getRequestURI()+(request.getQueryString()==null?"":URLEncoder.encode("?", "UTF-8")+request.getQueryString());
+			response.sendRedirect("/");
+			return true;
+		}
+		
 		return true;
 	}
 

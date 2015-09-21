@@ -45,6 +45,11 @@
 	
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<property name="order" value="1" />
+		<property name="interceptors">
+			<list>
+				<ref bean="commonInterceptor" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />

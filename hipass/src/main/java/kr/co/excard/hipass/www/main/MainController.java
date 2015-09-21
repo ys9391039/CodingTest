@@ -42,7 +42,8 @@ public class MainController extends CommonController{
 		String cardName = StringUtil.reqNullCheck(req, "cardName");
 		String cardNumber = StringUtil.reqNullCheck(req, "cardNumber");
 
-		File file = new File(fileRootDir+"basicData.txt");
+		// 파일명에 카드번호가 포함되도록 처리
+		File file = new File(fileRootDir+"basicData_"+ cardNumber +".txt");
 		logger.debug("file:::::"+file);
 		
 		FileOutputStream fos = null;
@@ -73,6 +74,10 @@ public class MainController extends CommonController{
 			try{bw.close();}catch(Exception e){System.out.println(e.getMessage());}
 		}
 
+		// 세션저장
+		req.getSession().setAttribute("Login", "OK");
+		req.getSession().setAttribute("cardNumber", cardNumber);
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("resultCode", 0);
 		return modelAndView;		
@@ -97,7 +102,10 @@ public class MainController extends CommonController{
 		String billInfoArr[] = billInfoList.split("@");
 		logger.debug("billInfoArr.length:::::"+billInfoArr.length);
 		
-		File file = new File(fileRootDir+"billData.txt");
+		// 파일명에 카드번호가 포함되도록 처리
+		String cardNumber = (String)req.getSession().getAttribute("cardNumber");
+		
+		File file = new File(fileRootDir+"billData_"+ cardNumber +".txt");
 		logger.debug("file:::::"+file);
 		
 		FileOutputStream fos = null;

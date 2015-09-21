@@ -8,6 +8,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import kr.co.excard.hipass.common.Constants;
 import kr.co.excard.hipass.common.controller.CommonController;
 import kr.co.excard.hipass.common.exception.CustomException;
@@ -35,10 +37,13 @@ public class UsePculrController extends CommonController{
 	}
 	
 	@RequestMapping(value = "/UsePculrReceiptPrintAjax.json")
-	public ModelAndView UsePculrReceiptPrintAjax() throws CustomException {				
+	public ModelAndView UsePculrReceiptPrintAjax(HttpServletRequest req) throws CustomException {				
+		
+		// 카드번호는 세션에서 꺼내서 사용
+		String cardNumber = (String)req.getSession().getAttribute("cardNumber");
 		
 		// 기본정보 읽어오기
-		File file = new File(fileRootDir+"basicData.txt");
+		File file = new File(fileRootDir+"basicData_"+ cardNumber +".txt");
 		logger.debug("file:::::"+file);
 		FileInputStream fis = null;
 		InputStreamReader isb = null;
@@ -46,7 +51,7 @@ public class UsePculrController extends CommonController{
 		
 		int carType = 0;
 		String cardName = "";
-		String cardNumber = "";
+		//String cardNumber = "";
 		try{
 			fis = new FileInputStream(file);
 			isb = new InputStreamReader(fis, "UTF-8");
@@ -59,7 +64,7 @@ public class UsePculrController extends CommonController{
 						
 			carType = Integer.valueOf(tmpArr[0]);
 			cardName = tmpArr[1];
-			cardNumber = tmpArr[2];
+			//cardNumber = tmpArr[2];
 			
 		}catch(Exception e){
 			System.out.println("Error :"+e.getMessage());
@@ -71,7 +76,7 @@ public class UsePculrController extends CommonController{
 		}
 		
 		// 영수증 정보 읽어오기
-		file = new File(fileRootDir+"billData.txt");
+		file = new File(fileRootDir+"billData_"+ cardNumber +".txt");
 //		System.out.println("file:::::"+file);
 		logger.debug("file:::::"+file);
 		fis = null;
