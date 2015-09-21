@@ -181,7 +181,7 @@ function f_saveInfo() {
 		</tr>	
 	</tbody>
 </table>
-<table border="1" width="1450">
+<table border="1" width="1570">
 	<colgroup>
 		<col width="4%" />
 		<col width="9%" />
@@ -196,7 +196,7 @@ function f_saveInfo() {
 		<col width="7%" />
 		<col width="7%" />
 		<col width="6%" />
-		<col width="10%" />
+		<col width="8%" />
 	</colgroup>
 	<thead>
 		<tr>
@@ -223,7 +223,7 @@ function f_saveInfo() {
 				<input type='text' name='' size='18' value='추부영업소' disabled></td>
 			<td align='center'><input type='text' name='' size='15' value='041)752-8732' disabled></td>
 			<td align='center'><input type='text' name='' size='15' value='129-82-00103' disabled></td>
-			<td align='center'><input type='text' name='' size='30' value='2015년09월01일 21시42분' disabled></td>
+			<td align='center'><input type='text' name='' size='25' value='2015년09월01일 21시42분' disabled></td>
 			<td align='center'><input type='text' name='' size='15' value='서대전' disabled></td>
 			<td align='center'><input type='text' name='' size='10' value='1900' disabled></td>
 			<td align='center'><input type='text' name='' size='11' value='KEC' disabled><br/>
@@ -238,7 +238,7 @@ function f_saveInfo() {
 				<input type='text' name='' size='10' value='' disabled></td>
 			<td align='center'><input type='text' name='' size='11' value='1900' disabled><br/>
 				<input type='text' name='' size='10' value='0' disabled></td>
-			<td align='center'><input type='text' name='' size='20' value='H071-7101-02253' disabled></td>
+			<td align='center'><input type='text' name='' size='15' value='H071-7101-02253' disabled></td>
 		</tr>
 		<!--<tr>
 			<td align='center'>0</td>
@@ -246,7 +246,7 @@ function f_saveInfo() {
 				<input type='text' name='regionName' size='18' value='추부영업소'></td>
 			<td align='center'><input type='text' name='tgTel' size='15' value='041)752-8732'></td>
 			<td align='center'><input type='text' name='tgAccount' size='15' value='129-82-00103'></td>
-			<td align='center'><input type='text' name='payDate' size='30' value='2015년09월01일 21시42분'></td>
+			<td align='center'><input type='text' name='payDate' size='25' value='2015년09월01일 21시42분'></td>
 			<td align='center'><input type='text' name='tgName' size='15' value='서대전'></td>
 			<td align='center'><input type='text' name='billAmount' size='10' value='1900'></td>
 			<td align='center'><input type='text' name='tgType1' size='11' value='KEC'><br/>
@@ -261,7 +261,7 @@ function f_saveInfo() {
 				<input type='text' name='billAmount5' size='10' value=''></td>
 			<td align='center'><input type='text' name='totalAmount' size='11' value='1900'><br/>
 				<input type='text' name='taxAmount' size='10' value='0'></td>
-			<td align='center'><input type='text' name='tgSerial' size='20' value='H071-7101-02253'></td>
+			<td align='center'><input type='text' name='tgSerial' size='15' value='H071-7101-02253'></td>
 		</tr>-->
 	<%
 		for (int i=1; i<=receipts; i++) {
@@ -272,7 +272,7 @@ function f_saveInfo() {
 				<input type='text' name='regionName' size='18' value=''></td>
 			<td align='center'><input type='text' name='tgTel' size='15' value=''></td>
 			<td align='center'><input type='text' name='tgAccount' size='15' value=''></td>
-			<td align='center'><input type='text' name='payDate' size='30' value=''></td>
+			<td align='center'><input type='text' name='payDate' size='25' value=''></td>
 			<td align='center'><input type='text' name='tgName' size='15' value=''></td>
 			<td align='center'><input type='text' name='billAmount' size='10' maxlength="9" value=''></td>
 			<td align='center'><input type='text' name='tgType1' size='11' value=''><br/>
@@ -287,7 +287,7 @@ function f_saveInfo() {
 				<input type='text' name='billAmount5' size='10' maxlength="9" value=''></td>
 			<td align='center'><input type='text' name='totalAmount' size='11' maxlength="9" value=''><br/>
 				<input type='text' name='taxAmount' size='10' maxlength="9" value='0'></td>
-			<td align='center'><input type='text' name='tgSerial' size='20' value=''></td>
+			<td align='center'><input type='text' name='tgSerial' size='15' value=''></td>
 		</tr>
 	<%} %>
 	</tbody>
