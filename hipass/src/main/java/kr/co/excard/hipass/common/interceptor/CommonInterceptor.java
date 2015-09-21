@@ -19,10 +19,10 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
 		logger.debug("preHandle>>>>>");
-		//response.sendRedirect("/login/login.do");
 		
 		String uri = request.getRequestURI();
-		if (uri.indexOf("step1") > 0) return true;
+		if (uri.indexOf("step1") > 0 || uri.indexOf("login") > 0) 
+			return true;
 			
 		if (!"OK".equals(request.getSession().getAttribute("Login"))){
 			//String returnUrl = request.getRequestURI()+(request.getQueryString()==null?"":URLEncoder.encode("?", "UTF-8")+request.getQueryString());

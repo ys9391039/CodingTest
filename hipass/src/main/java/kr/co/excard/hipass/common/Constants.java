@@ -15,9 +15,7 @@ public class Constants{
 	}
 	
 	public static String FILE_ROOT_DIR = "system.fileRootDir";
-	public static String CAR_TYPE = "system.carType";
-	public static String CARD_NAME = "system.cardName";
-	public static String CARD_NUMBER = "system.cardNumber";
-	public static String TX_SERIAL = "system.txSerial";
+	public static String ID = "user.id";
+	public static String PASSWORD = "user.password";
 	
 }

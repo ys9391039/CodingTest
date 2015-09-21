@@ -41,6 +41,8 @@ public class UsePculrController extends CommonController{
 		
 		// 카드번호는 세션에서 꺼내서 사용
 		String cardNumber = (String)req.getSession().getAttribute("cardNumber");
+		if ("".equals(cardNumber) || cardNumber == null)
+			throw new CustomException(9991, "일시적인 오류 입니다.");
 		
 		// 기본정보 읽어오기
 		File file = new File(fileRootDir+"basicData_"+ cardNumber +".txt");

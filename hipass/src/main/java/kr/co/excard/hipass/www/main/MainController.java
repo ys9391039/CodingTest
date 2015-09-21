@@ -27,6 +27,29 @@ public class MainController extends CommonController{
 	protected Log logger = LogFactory.getLog(this.getClass());
 	private	final static String fileRootDir = Constants.configProp.getProperty(Constants.FILE_ROOT_DIR);
 	
+	@RequestMapping(value = "/login.json")
+	public ModelAndView login(HttpServletRequest req) throws CustomException {				
+		
+		String userId = StringUtil.reqNullCheck(req, "userId");
+		String userPassword = StringUtil.reqNullCheck(req, "userPassword");
+
+		int resultcode = 0;
+		String id = Constants.configProp.getProperty(Constants.ID);
+		String password = Constants.configProp.getProperty(Constants.PASSWORD);
+		
+		if (id.equalsIgnoreCase(userId) && password.equalsIgnoreCase(userPassword)){
+			// 로그인 세션저장
+			req.getSession().setAttribute("Login", "OK");
+		}else{
+			resultcode = 9990;
+			throw new CustomException(resultcode, "로그인 정보가 올바르지 않습니다.");
+		}
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("resultCode", resultcode);
+		return modelAndView;		
+	}
+	
 	@RequestMapping(value = "/step1.do")
 	public ModelAndView step1() throws CustomException {				
 		
@@ -74,8 +97,8 @@ public class MainController extends CommonController{
 			try{bw.close();}catch(Exception e){System.out.println(e.getMessage());}
 		}
 
-		// 세션저장
-		req.getSession().setAttribute("Login", "OK");
+		// 카드 번호 세션저장
+		//req.getSession().setAttribute("Login", "OK");
 		req.getSession().setAttribute("cardNumber", cardNumber);
 		
 		ModelAndView modelAndView = new ModelAndView();
@@ -104,6 +127,8 @@ public class MainController extends CommonController{
 		
 		// 파일명에 카드번호가 포함되도록 처리
 		String cardNumber = (String)req.getSession().getAttribute("cardNumber");
+		if ("".equals(cardNumber) || cardNumber == null)
+			throw new CustomException(9991, "일시적인 오류 입니다.");
 		
 		File file = new File(fileRootDir+"billData_"+ cardNumber +".txt");
 		logger.debug("file:::::"+file);

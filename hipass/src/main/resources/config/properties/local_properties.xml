@@ -2,4 +2,6 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="system.fileRootDir">D:\Temp\</entry>
+    <entry key="user.id">hipass</entry>
+    <entry key="user.password">hipass1234</entry>
 </properties>
