@@ -147,24 +147,24 @@
 	
 	function makeResult(json){
 		html = '';
-		
+		var rowCount = 0;
 		$.each(json.billInfoList, function(i, billInfo){
 			html +='<DIV class=bill>';
 			html +='<TABLE border=0 cellSpacing=0 cellPadding=0 width=200><TBODY>';
-			html +='<TR><TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>';
-			html +='<TR><TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>';
+			html +='<TR><TD style=\"FONT-SIZE: 16px\" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>';
+			html +='<TR><TD style=\"FONT-SIZE: 16px\" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>';
 			html +='<TR><TD height=10></TD></TR>';
-			html +='<TR><TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>';
+			html +='<TR><TD style=\"FONT-SIZE: 20px\" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>';
 			html +='<TR><TD><TABLE border=0 cellSpacing=0 cellPadding=0 width=200><TBODY>';
-			html +='<TR><TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>'+billInfo.serviceName+'</STRONG> </TD>';
-			html +='<TD style="FONT-SIZE: 12px" align=middle><STRONG>'+billInfo.regionName+'</STRONG> </TD></TR></TBODY></TABLE></TD></TR>';
-			html +='<TR><TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : '+billInfo.tgTel+' </TD></TR>';
-			html +='<TR><TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : '+billInfo.tgAccount+' </TD></TR>';
-			html +='<TR><TD style="FONT-SIZE: 12px" height=20 align=middle>'+billInfo.payDate+' </TD></TR>';
+			html +='<TR><TD style=\"FONT-SIZE: 12px\" height=18 width=80 align=middle><STRONG>'+billInfo.serviceName+'</STRONG> </TD>';
+			html +='<TD style=\"FONT-SIZE: 12px\" align=middle><STRONG>'+billInfo.regionName+'</STRONG> </TD></TR></TBODY></TABLE></TD></TR>';
+			html +='<TR><TD style=\"FONT-SIZE: 12px\" height=16 align=middle>TEL : '+billInfo.tgTel+' </TD></TR>';
+			html +='<TR><TD style=\"FONT-SIZE: 12px\" height=16 align=middle>사업자번호 : '+billInfo.tgAccount+' </TD></TR>';
+			html +='<TR><TD style=\"FONT-SIZE: 12px\" height=20 align=middle>'+billInfo.payDate+' </TD></TR>';
 			if (billInfo.tgName != null && billInfo.tgName != "")
-				html +='<TR><TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : '+billInfo.tgName+'</STRONG> </TD></TR>';
+				html +='<TR><TD style=\"FONT-SIZE: 14px\" height=20 align=middle><STRONG>입구영업소 : '+billInfo.tgName+'</STRONG> </TD></TR>';
 			html +='<TR><TD><TABLE border=0 cellSpacing=0 cellPadding=0 width=200><TBODY>';
-			html +='<TR><TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>'+billInfo.carType+' 종</STRONG> </TD><TD style="FONT-SIZE: 13px" align=middle><STRONG>'+billInfo.billAmount+' 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>';
+			html +='<TR><TD style=\"FONT-SIZE: 14px\" height=18 width=80 align=middle><STRONG>'+billInfo.carType+' 종</STRONG> </TD><TD style=\"FONT-SIZE: 13px\" align=middle><STRONG>'+billInfo.billAmount+' 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>';
 			html +='<TR><TD height=18><TABLE border=0 cellSpacing=0 cellPadding=0 width=200><TBODY><TR><TD height=14 width=80 align=middle>'+billInfo.tgType1+' </TD><TD align=middle>'+billInfo.billAmount1+' 원(카드) </TD></TR></TBODY></TABLE></TD></TR>';
 			if (billInfo.tgType2 != null && billInfo.tgType2 != "")
 				html +='<TR><TD height=18><TABLE border=0 cellSpacing=0 cellPadding=0 width=200><TBODY><TR><TD height=14 width=80 align=middle>'+billInfo.tgType2+' </TD><TD align=middle>'+billInfo.billAmount2+' 원(카드) </TD></TR></TBODY></TABLE></TD></TR>';
@@ -174,11 +174,18 @@
 				html +='<TR><TD height=18><TABLE border=0 cellSpacing=0 cellPadding=0 width=200><TBODY><TR><TD height=14 width=80 align=middle>'+billInfo.tgType4+' </TD><TD align=middle>'+billInfo.billAmount4+' 원(카드) </TD></TR></TBODY></TABLE></TD></TR>';
 			if (billInfo.tgType5 != null && billInfo.tgType5 != "")
 				html +='<TR><TD height=18><TABLE border=0 cellSpacing=0 cellPadding=0 width=200><TBODY><TR><TD height=14 width=80 align=middle>'+billInfo.tgType5+' </TD><TD align=middle>'+billInfo.billAmount5+' 원(카드) </TD></TR></TBODY></TABLE></TD></TR>';
-			html +='<TR><TD><TABLE border=0 cellSpacing=0 cellPadding=0 width=200><TBODY><TR><TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : '+billInfo.totalAmount+' 원 </TD><TD style="FONT-SIZE: 11px" align=middle>부가세 : '+billInfo.taxAmount+' 원 </TD></TR></TBODY></TABLE></TD></TR>';
+			html +='<TR><TD><TABLE border=0 cellSpacing=0 cellPadding=0 width=200><TBODY><TR><TD style=\"FONT-SIZE: 11px\" height=16 align=middle>공급가액 : '+billInfo.totalAmount+' 원 </TD><TD style=\"FONT-SIZE: 11px\" align=middle>부가세 : '+billInfo.taxAmount+' 원 </TD></TR></TBODY></TABLE></TD></TR>';
 			html +='<TR><TD align=middle>'+billInfo.cardName+' </TD></TR>';
 			html +='<TR><TD align=middle>'+billInfo.cardNumber+' </TD></TR>';
-			html +='<TR><TD style="FONT-SIZE: 14px" height=25 align=middle>'+billInfo.txSerial+' </TD></TR></TBODY></TABLE>';
+			html +='<TR><TD style=\"FONT-SIZE: 14px\" height=25 align=middle>'+billInfo.txSerial+' </TD></TR></TBODY></TABLE>';
 			html +='</DIV>';
+			
+			rowCount++;
+			if ((rowCount % 9) == 0 && rowCount > 0){
+				html += '<DIV class=\"breakhere\"></DIV>';
+				html += '<!--[if IE 7]><br style=\"height:0px;line-height:0\"/><![endif]-->';
+			}
+				
 		});
 		
 		// 게시판 목록 갱신

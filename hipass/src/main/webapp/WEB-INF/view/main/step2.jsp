@@ -266,6 +266,29 @@ function f_saveInfo() {
 	<%
 		for (int i=1; i<=receipts; i++) {
 	%>
+<!-- 	<tr>
+			<td align='center'>0</td>
+			<td align='center'><input type='text' name='serviceName' size='20' value='한국도로공사'><br/>
+				<input type='text' name='regionName' size='18' value='추부영업소'></td>
+			<td align='center'><input type='text' name='tgTel' size='15' value='041)752-8732'></td>
+			<td align='center'><input type='text' name='tgAccount' size='15' value='129-82-00103'></td>
+			<td align='center'><input type='text' name='payDate' size='25' value='2015년09월01일 21시42분'></td>
+			<td align='center'><input type='text' name='tgName' size='15' value='서대전'></td>
+			<td align='center'><input type='text' name='billAmount' size='10' value='1900'></td>
+			<td align='center'><input type='text' name='tgType1' size='11' value='KEC'><br/>
+				<input type='text' name='billAmount1' size='10' value='1900'></td>
+			<td align='center'><input type='text' name='tgType2' size='11' value='CNE'><br/>
+				<input type='text' name='billAmount2' size='10' value='100'></td>
+			<td align='center'><input type='text' name='tgType3' size='11' value=''><br/>
+				<input type='text' name='billAmount3' size='10' value=''></td>
+			<td align='center'><input type='text' name='tgType4' size='11' value=''><br/>
+				<input type='text' name='billAmount4' size='10' value=''></td>
+			<td align='center'><input type='text' name='tgType5' size='11' value=''><br/>
+				<input type='text' name='billAmount5' size='10' value=''></td>
+			<td align='center'><input type='text' name='totalAmount' size='11' value='1900'><br/>
+				<input type='text' name='taxAmount' size='10' value='0'></td>
+			<td align='center'><input type='text' name='tgSerial' size='15' value='H071-7101-02253'></td>
+		</tr> -->
 		<tr>
 			<td align='center'><%=i %></td>
 			<td align='center'><input type='text' name='serviceName' size='20' value=''><br/>

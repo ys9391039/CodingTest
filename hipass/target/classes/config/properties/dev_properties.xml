@@ -2,8 +2,6 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="system.fileRootDir">/Temp/</entry>
-    <entry key="system.carType">1</entry>
-    <entry key="system.cardName">현대카드</entry>
-    <entry key="system.cardNumber">0190-0200-3890-8992</entry>
-    <entry key="system.txSerial">H071-7101-02253|H071-7101-03353|H071-7101-04453|H071-7101-05553</entry>
+    <entry key="user.id">hipass</entry>
+    <entry key="user.password">hipass1234</entry>    
 </properties>

@@ -49,6 +49,8 @@ function f_saveInfo() {
 			cfHideBlock();
 		}
 	});
+
+
 }
 
 </script>

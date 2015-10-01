@@ -49,6 +49,12 @@ $(document).ready( function() {
 	//alert(location.protocol);
 	if (location.protocol == "http:")
 		location.href = "https://"+location.host;
+
+	$('#userPassword').keydown(function(e) {
+	    if (e.keyCode == 13) {
+	    	f_saveInfo();
+	    }
+	});	
 });
 
 </script>
