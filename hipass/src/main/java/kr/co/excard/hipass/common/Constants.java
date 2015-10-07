@@ -17,5 +17,6 @@ public class Constants{
 	public static String FILE_ROOT_DIR = "system.fileRootDir";
 	public static String ID = "user.id";
 	public static String PASSWORD = "user.password";
+	public static String APPVERSION = "system.appVersion";
 	
 }

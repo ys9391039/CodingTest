@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<spring:eval expression="@configProp" var="configProp" scope="request"/>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="/css/basic.css?${configProp['system.appVersion']}" />
 <script type="text/javascript" src="/js/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="/js/jquery-ui.js"></script>
 <script type="text/javascript" src="/js/plugin/jquery.blockUI.js"></script> 
-<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/common.js?${configProp['system.appVersion']}"></script>
 <script type=text/javascript>
 function f_saveInfo() {
 	
@@ -56,6 +58,7 @@ function f_saveInfo() {
 </script>
 </head>
 <body>
+verion : ${configProp['system.appVersion']}<br/>
 <table border="0" width="600">
 	<tbody>
 		<tr>

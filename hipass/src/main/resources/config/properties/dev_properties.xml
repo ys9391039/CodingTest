@@ -3,5 +3,6 @@
 <properties>
     <entry key="system.fileRootDir">/Temp/</entry>
     <entry key="user.id">hipass</entry>
-    <entry key="user.password">hipass1234</entry>    
+    <entry key="user.password">hipass1234</entry>
+    <entry key="system.appVersion">2015.10.07.20.48</entry>  
 </properties>

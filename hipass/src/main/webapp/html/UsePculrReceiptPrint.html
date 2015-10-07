@@ -1,1021 +1,748 @@
-<!-- saved from url=(0057)https://www.excard.co.kr/usepculr/UsePculrReceiptPrint.do -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<HTML xmlns="http://www.w3.org/1999/xhtml">
-<HEAD>
-<TITLE>통행료 지불 excard 서비스 - 영수증</TITLE>
-<META content="text/html; charset=utf-8" http-equiv=Content-Type><LINK rel=stylesheet type=text/css href="https://www.excard.co.kr/css/cupertino/jquery-ui-1.8.13.custom.css"><LINK rel="shortcut icon" type=image/x-icon href="https://www.excard.co.kr/img/comm/icon_hipass.ico">
-<SCRIPT language=javascript type=text/javascript src="https://www.excard.co.kr/js/hp/comm/jquery-1.5.1.min.js"></SCRIPT>
-<SCRIPT language=javascript type=text/javascript src="https://www.excard.co.kr/js/hp/comm/json2.js"></SCRIPT>
-<SCRIPT language=javascript type=text/javascript src="https://www.excard.co.kr/js/hp/comm/jquery-ui-1.8.13.custom.min.js"></SCRIPT>
-<SCRIPT language=javascript type=text/javascript src="https://www.excard.co.kr/js/hp/comm/Utillity.js"></SCRIPT>
-<SCRIPT language=javascript type=text/javascript src="https://www.excard.co.kr/RexServer30/rexscript/rexpert.js"></SCRIPT>
-<SCRIPT language=javascript type=text/javascript src="https://www.excard.co.kr/RexServer30/rexscript/rexpert_properties.js"></SCRIPT>
-<SCRIPT language=javascript type=text/javascript src="https://ck.softforum.co.kr/CKKeyPro/research_ex/CKKeyPro.js"></SCRIPT>
-<OBJECT style="DISPLAY: none" id=TouchEnKey codeBase="https://ck.softforum.co.kr/CKKeyPro/research_ex/TouchEnkey3.1.0.21_32k.cab#version=3,1,0,21" hspace=0 vspace=0 classid=clsid:6CE20149-ABE3-462E-A1B4-5B549971AA38 width=0><PARAM NAME="ImageURL" VALUE=""><PARAM NAME="Xgate" VALUE=""><PARAM NAME="DefaultEnc" VALUE=""><PARAM NAME="TrayIcon" VALUE=""><PARAM NAME="AllowDuplicates" VALUE=""><PARAM NAME="DefaultPaste" VALUE=""><PARAM NAME="TrayPopup" VALUE=""><PARAM NAME="ReportErrors" VALUE=""><PARAM NAME="PKI" VALUE=""><PARAM NAME="ReportDataTypeMismatch" VALUE=""><PARAM NAME="ClearBufferOnEmpty" VALUE=""><PARAM NAME="UseIntranet" VALUE=""><PARAM NAME="ShowTrayIconOnFocus" VALUE=""><PARAM NAME="Hardware" VALUE=""><PARAM NAME="KeyboardOnly" VALUE=""><PARAM NAME="GenerateEvent" VALUE=""><PARAM NAME="Verify" VALUE=""><PARAM NAME="IgnoreProgress" VALUE=""><PARAM NAME="ArrowKey" VALUE=""><PARAM NAME="CSP" VALUE=""><PARAM NAME="IMPROVE" VALUE=""><PARAM NAME="Advice" VALUE=""><PARAM NAME="Lang" VALUE=""><PARAM NAME="Reader" VALUE=""><PARAM NAME="IDBase" VALUE=""></OBJECT>
-<SCRIPT language=javascript type=text/javascript>
-//<![CDATA[
-	var contextpath = "";
-
-	//인쇄
-	function printDiv(){
-       	window.print(); 
-	} 
-
-	//보고서 인쇄
-	function fn_print_receipt(){
-
-		//레포트 생성 객체
-		var oReport = GetfnParamSet("영수증");
-
-		//레포트 파일명 설정
-		oReport.rptname = "hp/UsePculrTabSearchForReceipt";
-
-		//레포트 파라메터 설정
-		
-			
-			
-				if('tV4rILt8IncwJZU3sW1kwygUiQKoJXobyQRPXr27qH9lkpciE42j1VnYs9ew2lcvRNR36j32M0IEl0hF+wcQ5Q=='.length > 0){
-					oReport.param("user_key").value = "tV4rILt8IncwJZU3sW1kwygUiQKoJXobyQRPXr27qH9lkpciE42j1VnYs9ew2lcvRNR36j32M0IEl0hF+wcQ5Q==";
-				}else{
-					oReport.param("user_key").value = "";
-				}
-			
-		
-
-		oReport.param("user_type").value = "1";
-		oReport.param("sDate").value = "20150616";
-		oReport.param("eDate").value = "20150915";
-		oReport.param("ecd_no").value = "";
-		oReport.param("hp_card_kind").value = "";
-		oReport.param("card_com").value = "";
-		oReport.param("date_type").value = "work";
-		oReport.param("order_item").value = "date";
-		oReport.param("order_type").value = "desc";
-		oReport.param("in_ic_code").value = "";
-		oReport.param("out_ic_code").value = "";
-		oReport.param("row_nums").value = "";
-		
-		//레포트 출력 완료 후
-		oReport.event.finishdocument = fnReportEvent;
-		oReport.event.finishprint = fnReportEvent;
-		
-		//레포트 실행
-		oReport.open();
-	}
+<html><head>
+<link href="/css/basic.css" rel="stylesheet" type="text/css">
+<script src="/js/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="/js/jquery-ui.js" type="text/javascript"></script>
+<script src="/js/plugin/jquery.blockUI.js" type="text/javascript"></script> 
+<script src="/js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+function f_saveInfo() {
 	
-	//영수증 출력시 엑셀, 한글 파일 export 막음
-	function fnReportEvent(oRexCtl, sEvent, oArgs) {
-		if (sEvent == "finishdocument") {
-			oRexCtl.SetCSS("appearance.toolbar.button.exportxls.visible=0");
-			oRexCtl.SetCSS("appearance.toolbar.button.exporthwp.visible=0");
-			oRexCtl.UpdateCSS();
-		}else if (sEvent="finishprint"){
-			var parameters = $("#hpForm").serialize();
-			$.ajax({
-				url : 'https://www.excard.co.kr/usepculr/UsePculrReceiptPrintIss.do',
-				type : 'post',
-				async : true,
-				data: parameters,
-				dataType: 'json',
-				success: function(data){
-				},
-				error : function(msg){
-				}
-			}); 
+	var serviceNames = document.getElementsByName('serviceName');
+	var regionNames = document.getElementsByName('regionName');
+	var tgTels = document.getElementsByName('tgTel');
+	var tgAccounts = document.getElementsByName('tgAccount');
+	var payDates = document.getElementsByName('payDate');
+	var tgNames = document.getElementsByName('tgName');
+	var billAmounts = document.getElementsByName('billAmount');
+	
+	var tgType1s = document.getElementsByName('tgType1');
+	var tgType2s = document.getElementsByName('tgType2');
+	var tgType3s = document.getElementsByName('tgType3');
+	var tgType4s = document.getElementsByName('tgType4');
+	var tgType5s = document.getElementsByName('tgType5');
+	var billAmount1s = document.getElementsByName('billAmount1');
+	var billAmount2s = document.getElementsByName('billAmount2');
+	var billAmount3s = document.getElementsByName('billAmount3');
+	var billAmount4s = document.getElementsByName('billAmount4');
+	var billAmount5s = document.getElementsByName('billAmount5');
+	var totalAmounts = document.getElementsByName('totalAmount');
+	var taxAmounts = document.getElementsByName('taxAmount');
+	var tgSerials = document.getElementsByName('tgSerial');
+	
+	
+	for(var i=0; i<20; i++){
+		var serviceName =serviceNames[i];
+		var regionName =regionNames[i];
+		var tgTel =tgTels[i];
+		var tgAccount =tgAccounts[i];
+		var payDate =payDates[i];
+		var tgName =tgNames[i];
+		var billAmount =billAmounts[i];
+		var tgType1 =tgType1s[i];
+		var tgType2 =tgType2s[i];
+		var tgType3 =tgType3s[i];
+		var tgType4 =tgType4s[i];
+		var tgType5 =tgType5s[i];
+		var billAmount1 =billAmount1s[i];
+		var billAmount2 =billAmount2s[i];
+		var billAmount3 =billAmount3s[i];
+		var billAmount4 =billAmount4s[i];
+		var billAmount5 =billAmount5s[i];
+		var totalAmount =totalAmounts[i];
+		var taxAmount =taxAmounts[i];
+		var tgSerial =tgSerials[i];
+		
+		var count = i+1;
+		if (serviceName.value!=""){
+			if(regionName.value=="") {alert(count+"번째행, 영업소를 입력하세요."); return;};
+			if(tgTel.value=="") {alert(count+"번째행, 전화번호를 입력하세요."); return;};
+			if(tgAccount.value=="") {alert(count+"번째행, 사업자번호를 입력하세요."); return;};
+			if(payDate.value=="") {alert(count+"번째행, 날짜를 입력하세요."); return;};
+			if(billAmount.value=="") {alert(count+"번째행, 요금을 입력하세요."); return;};
+			if(!cfCheckOnlyNumber(billAmount.value)) {alert(count+"번째행, 요금은 숫자만 입력하세요."); return;};
+			
+			if(tgType1.value=="") {alert(count+"번째행, 기본톨게이트를 입력하세요."); return;};
+			if(billAmount1.value=="") {alert(count+"번째행, 기본톨게이트 요금을 입력하세요."); return;};
+			if(!cfCheckOnlyNumber(billAmount1.value)) {alert(count+"번째행, 기본톨게이트 요금은 숫자만 입력하세요."); return;};
+			
+			if(tgType2.value!="" || billAmount2.value!=""){
+				if(billAmount2.value=="") {alert(count+"번째행, 추가톨게이트 요금1을 입력하세요."); return;};
+				if(!cfCheckOnlyNumber(billAmount2.value)) {alert(count+"번째행, 추가톨게이트 요금1은 숫자만 입력하세요."); return;};
+			}
+			if(tgType3.value!="" || billAmount3.value!=""){
+				if(billAmount3.value=="") {alert(count+"번째행, 추가톨게이트 요금2을 입력하세요."); return;};
+				if(!cfCheckOnlyNumber(billAmount3.value)) {alert(count+"번째행, 추가톨게이트 요금2은 숫자만 입력하세요."); return;};
+			}
+			if(tgType4.value!="" || billAmount4.value!=""){
+				if(billAmount4.value=="") {alert(count+"번째행, 추가톨게이트 요금3을 입력하세요."); return;};
+				if(!cfCheckOnlyNumber(billAmount4.value)) {alert(count+"번째행, 추가톨게이트 요금3은 숫자만 입력하세요."); return;};
+			}
+			if(tgType5.value!="" || billAmount5.value!=""){
+				if(billAmount5.value=="") {alert(count+"번째행, 추가톨게이트 요금4을 입력하세요."); return;};
+				if(!cfCheckOnlyNumber(billAmount5.value)) {alert(count+"번째행, 추가톨게이트 요금4은 숫자만 입력하세요."); return;};
+			}
+			
+			if(totalAmount.value=="") {alert(count+"번째행, 공급가액을 입력하세요."); return;};
+			if(!cfCheckOnlyNumber(totalAmount.value)) {alert(count+"번째행, 공급가액은 숫자만 입력하세요."); return;};
+			
+			if(taxAmount.value=="") {alert(count+"번째행, 부가세를 입력하세요."); return;};
+			if(!cfCheckOnlyNumber(taxAmount.value)) {alert(count+"번째행, 부가세는 숫자만 입력하세요."); return;};
+			
+			if(tgSerial.value=="") {alert(count+"번째행, 일련번호를 입력하세요."); return;};
 		}
 	}
 	
+	billInfoList = "";
+	billInfo = "";
+	for(var i=0; i<20; i++){
+		var serviceName =serviceNames[i];
+		var regionName =regionNames[i];
+		var tgTel =tgTels[i];
+		var tgAccount =tgAccounts[i];
+		var payDate =payDates[i];
+		var tgName =tgNames[i];
+		var billAmount =billAmounts[i];
+		var tgType1 =tgType1s[i];
+		var tgType2 =tgType2s[i];
+		var tgType3 =tgType3s[i];
+		var tgType4 =tgType4s[i];
+		var tgType5 =tgType5s[i];
+		var billAmount1 =billAmount1s[i];
+		var billAmount2 =billAmount2s[i];
+		var billAmount3 =billAmount3s[i];
+		var billAmount4 =billAmount4s[i];
+		var billAmount5 =billAmount5s[i];
+		var totalAmount =totalAmounts[i];
+		var taxAmount =taxAmounts[i];
+		var tgSerial =tgSerials[i];
+		
+		if (regionName.value != ""){
+			billInfo = serviceName.value+"|"+regionName.value+"|"+tgTel.value+"|"+tgAccount.value+"|"+payDate.value+"|"+tgName.value+"|"+billAmount.value+"|";
+			billInfo += tgType1.value+"|"+billAmount1.value+"|";
+			billInfo += totalAmount.value+"|"+taxAmount.value+"|"+tgSerial.value+"|";
+			billInfo += tgType2.value+"|"+tgType3.value+"|"+tgType4.value+"|"+tgType5.value+"|";
+			billInfo += billAmount2.value+"|"+billAmount3.value+"|"+billAmount4.value+"|"+billAmount5.value+"|#";
+			//alert(billInfo);
+			if (i==0)
+				billInfoList = billInfo;
+			else
+				billInfoList = billInfoList + "@" + billInfo;
+		}
+	}
+	
+	//alert(billInfoList);
+	
+	var params = {
+		//billInfo : "추부영업소|041)752-8732|129-82-00103|2015년09월01일 21시42분|서대전|1|1900|현대카드|0190-0200-3890-8992|H071-7101-02253@추부영업소|041)752-8732|129-82-00103|2015년09월01일 21시42분|서대전|1|1900|현대카드|0190-0200-3890-8992|H071-7101-02253"
+		billInfo : billInfoList
+	}	
+	//return false;
+	
+	var request = $.ajax({
+		url: '/main/step2Ajax.json'
+		, type : 'POST'
+		, timeout: 30000
+		, data : params
+		, dataType : 'json'
+		, beforeSend: function(xmlHttpRequest) {
+			cfShowBlock(true);
+		}
+		, error: function(xhr, textStatus, errorThrown) {
+			alert("일시적인 오류가 발생했습니다.");
+		}
+		, success : function(json) {
+			if (json.resultCode == 0) 
+				document.location.href="/usepculr/UsePculrReceiptPrint.do"
+			else
+				alert("요청 중 서버에서 에러가 발생하였습니다.(errorCode:["+json.resultCode+"],"+json.resultMsg+")");
+		}
+		, complete : function() {
+			cfHideBlock();
+		}
+	});
+}
+</script>
+</head>
+<body>
+<table width="1200" border="0">
+	<tbody>
+		<tr>
+			<td height="50" align="center"><b>영수증 정보</b></td>
+		</tr>	
+	</tbody>
+</table>
+<table width="1570" border="1">
+	<colgroup>
+		<col width="4%">
+		<col width="9%">
+		<col width="6%">
+		<col width="6%">
+		<col width="*">
+		<col width="6%">
+		<col width="6%">
+		<col width="7%">
+		<col width="7%">
+		<col width="7%">
+		<col width="7%">
+		<col width="7%">
+		<col width="6%">
+		<col width="8%">
+	</colgroup>
+	<thead>
+		<tr>
+			<th>번호</th>
+			<th><font color="red">관할사업소/<br>영업소</font></th>
+			<th><font color="red">전화번호</font></th>
+			<th><font color="red">사업자번호</font></th>
+			<th><font color="red">날짜</font></th>
+			<th>입구영업소</th>
+			<th><font color="red">요금</font></th>
+			<th><font color="red">기본톨게이트/<br>요금</font></th>
+			<th>추가톨게이트1/<br>요금1</th>
+			<th>추가톨게이트2/<br>요금2</th>
+			<th>추가톨게이트3/<br>요금3</th>
+			<th>추가톨게이트4/<br>요금4</th>
+			<th><font color="red">공급가액/<br>부가세</font></th>
+			<th><font color="red">일련번호</font></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td align="center">예시</td>
+			<td align="center"><input disabled="" type="text" size="20" value="한국도로공사"><br>
+				<input disabled="" type="text" size="18" value="추부영업소"></td>
+			<td align="center"><input disabled="" type="text" size="15" value="041)752-8732"></td>
+			<td align="center"><input disabled="" type="text" size="15" value="129-82-00103"></td>
+			<td align="center"><input disabled="" type="text" size="25" value="2015년09월01일 21시42분"></td>
+			<td align="center"><input disabled="" type="text" size="15" value="서대전"></td>
+			<td align="center"><input disabled="" type="text" size="10" value="1900"></td>
+			<td align="center"><input disabled="" type="text" size="11" value="KEC"><br>
+				<input disabled="" type="text" size="10" value="1900"></td>
+			<td align="center"><input disabled="" type="text" size="11" value="CNE"><br>
+				<input disabled="" type="text" size="10" value="100"></td>
+			<td align="center"><input disabled="" type="text" size="11" value=""><br>
+				<input disabled="" type="text" size="10" value=""></td>
+			<td align="center"><input disabled="" type="text" size="11" value=""><br>
+				<input disabled="" type="text" size="10" value=""></td>
+			<td align="center"><input disabled="" type="text" size="11" value=""><br>
+				<input disabled="" type="text" size="10" value=""></td>
+			<td align="center"><input disabled="" type="text" size="11" value="1900"><br>
+				<input disabled="" type="text" size="10" value="0"></td>
+			<td align="center"><input disabled="" type="text" size="15" value="H071-7101-02253"></td>
+		</tr>
+		<!--<tr>
+			<td align='center'>0</td>
+			<td align='center'><input type='text' name='serviceName' size='20' value='한국도로공사'><br/>
+				<input type='text' name='regionName' size='18' value='추부영업소'></td>
+			<td align='center'><input type='text' name='tgTel' size='15' value='041)752-8732'></td>
+			<td align='center'><input type='text' name='tgAccount' size='15' value='129-82-00103'></td>
+			<td align='center'><input type='text' name='payDate' size='25' value='2015년09월01일 21시42분'></td>
+			<td align='center'><input type='text' name='tgName' size='15' value='서대전'></td>
+			<td align='center'><input type='text' name='billAmount' size='10' value='1900'></td>
+			<td align='center'><input type='text' name='tgType1' size='11' value='KEC'><br/>
+				<input type='text' name='billAmount1' size='10' value='1900'></td>
+			<td align='center'><input type='text' name='tgType2' size='11' value='CNE'><br/>
+				<input type='text' name='billAmount2' size='10' value='100'></td>
+			<td align='center'><input type='text' name='tgType3' size='11' value=''><br/>
+				<input type='text' name='billAmount3' size='10' value=''></td>
+			<td align='center'><input type='text' name='tgType4' size='11' value=''><br/>
+				<input type='text' name='billAmount4' size='10' value=''></td>
+			<td align='center'><input type='text' name='tgType5' size='11' value=''><br/>
+				<input type='text' name='billAmount5' size='10' value=''></td>
+			<td align='center'><input type='text' name='totalAmount' size='11' value='1900'><br/>
+				<input type='text' name='taxAmount' size='10' value='0'></td>
+			<td align='center'><input type='text' name='tgSerial' size='15' value='H071-7101-02253'></td>
+		</tr>-->
+	
+		<tr>
+			<td align="center">1</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">2</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">3</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">4</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">5</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">6</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">7</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">8</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">9</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">10</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">11</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">12</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">13</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">14</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">15</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">16</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">17</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">18</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">19</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+		<tr>
+			<td align="center">20</td>
+			<td align="center"><input name="serviceName" type="text" size="20" value=""><br>
+				<input name="regionName" type="text" size="18" value=""></td>
+			<td align="center"><input name="tgTel" type="text" size="15" value=""></td>
+			<td align="center"><input name="tgAccount" type="text" size="15" value=""></td>
+			<td align="center"><input name="payDate" type="text" size="25" value=""></td>
+			<td align="center"><input name="tgName" type="text" size="15" value=""></td>
+			<td align="center"><input name="billAmount" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType1" type="text" size="11" value=""><br>
+				<input name="billAmount1" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType2" type="text" size="11" value=""><br>
+				<input name="billAmount2" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType3" type="text" size="11" value=""><br>
+				<input name="billAmount3" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType4" type="text" size="11" value=""><br>
+				<input name="billAmount4" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="tgType5" type="text" size="11" value=""><br>
+				<input name="billAmount5" type="text" size="10" maxlength="9" value=""></td>
+			<td align="center"><input name="totalAmount" type="text" size="11" maxlength="9" value=""><br>
+				<input name="taxAmount" type="text" size="10" maxlength="9" value="0"></td>
+			<td align="center"><input name="tgSerial" type="text" size="15" value=""></td>
+		</tr>
+	
+	</tbody>
+</table>
+<table width="1200" border="0">
+	<tbody>
+		<tr>
+			<td height="50" align="center"><input id="saveInfo" onclick="javascript:f_saveInfo()" type="button" value="영수증 출력화면으로"></td>
+		</tr>	
+	</tbody>
+</table>
 
-//]]>
-</SCRIPT>
 
-<STYLE type=text/css>* {
-	MARGIN: 0px
-}
-TABLE {
-	TEXT-ALIGN: center; FONT-FAMILY: "돋움", "굴림"; COLOR: #000; FONT-SIZE: 12px; TEXT-DECORATION: none
-}
-.bill {
-	BACKGROUND-IMAGE: url(https://www.excard.co.kr/images/comm/logo00.png); BORDER-BOTTOM: #464646 1px solid; BORDER-LEFT: #464646 1px solid; WIDTH: 200px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-POSITION: 50% 45%; FLOAT: left; HEIGHT: 320px; BORDER-TOP: #464646 1px solid; BORDER-RIGHT: #464646 1px solid
-}
-DIV.breakhere {
-	PAGE-BREAK-BEFORE: always; WIDTH: 0px; HEIGHT: 0px
-}
-</STYLE>
-
-<STYLE type=text/css media=print>.printDefault {
-	TEXT-ALIGN: center; DISPLAY: none
-}
-</STYLE>
-
-<FORM id=hpForm method=post name=hpForm action=#hpForm><INPUT id=card_kind value=all type=hidden name=card_kind><INPUT id=card_com value=all type=hidden name=card_com><INPUT id=ecd_no value=all type=hidden name=ecd_no><INPUT id=sDate value=20150616 type=hidden name=sDate><INPUT id=eDate value=20150915 type=hidden name=eDate><INPUT id=date_type value=work type=hidden name=date_type><INPUT id=pageSize value=10 type=hidden name=pageSize><INPUT id=pageNo type=hidden name=pageNo><INPUT id=order_item value=date type=hidden name=order_item><INPUT id=order_type value=desc type=hidden name=order_type><INPUT id=row_nums type=hidden name=row_nums><INPUT id=is_all value=1 type=hidden name=is_all></HEAD>
-<BODY><INPUT style="DISPLAY: none" value="쿼리 전송" type=submit> </FORM>
-<DIV class=printDefault>
-<TABLE style="MARGIN-LEFT: 20px" border=0 cellSpacing=0 cellPadding=0 width=606>
-<TBODY>
-<TR>
-<TD height=40 vAlign=center align=left><IMG title=영수증인쇄 border=0 alt=영수증인쇄 src="https://www.excard.co.kr/images/comm/img_billprt_title.jpg"> </TD>
-<TD height=40 vAlign=center align=right><A onblur=fn_swap_img(this); onfocus=fn_swap_img(this); onmouseover=fn_swap_img(this); onmouseout=fn_swap_img(this); onclick="javascript:printDiv(); return false;" href="#mab"><IMG title=영수증인쇄 border=0 alt=영수증인쇄 src="https://www.excard.co.kr/images/comm/btn_billprt.jpg"></A> <A onblur=fn_swap_img(this); onfocus=fn_swap_img(this); onmouseover=fn_swap_img(this); onmouseout=fn_swap_img(this); onclick="javascript:fn_print_receipt(); return false;" href="#mab"><IMG title=보고서출력 border=0 alt=보고서출력 src="https://www.excard.co.kr/images/comm/btn_rexprt.jpg"></A> <A onblur=fn_swap_img(this); onfocus=fn_swap_img(this); onmouseover=fn_swap_img(this); onmouseout=fn_swap_img(this); onclick="javascript:window.close(); return false;" href="#mab"><IMG title=취소 border=0 alt=취소 src="https://www.excard.co.kr/images/comm/btn_cancel05.jpg"></A> </TD></TR></TBODY></TABLE></DIV>
-<DIV style="TEXT-ALIGN: center; WIDTH: 620px; MARGIN-LEFT: 30px" id=print1>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>추부영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 041)752-8732 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년09월01일 21시42분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 서대전</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>1,900 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>1,900 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 1,900 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H071-7101-02253 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>서대전영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 042)545-2504 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년08월28일 16시41분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 남대전</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>1,500 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>1,500 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 1,500 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H572-7201-03647 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>서대전영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 042)545-2504 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년08월23일 15시10분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 남대전</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>1,600 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>1,600 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 1,600 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H572-7201-02862 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>판암영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 042)283-2504 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년08월16일 16시53분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 금강</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>2,000 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>2,000 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 2,000 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H171-7101-03338 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>금강영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 043) 732-3274 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년08월16일 14시04분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 판암</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>2,000 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>2,000 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 2,000 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H171-7101-00739 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>금산영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 041)751-2504 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년07월15일 12시52분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 남대전</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>1,600 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>1,600 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 1,600 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H071-7101-00970 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>대전영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 042)636-2504 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년07월12일 13시51분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 남제천</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>7,300 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>7,300 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 7,300 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H172-7201-03275 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>남제천영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 043)651-8877 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년07월11일 13시17분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 대전</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>7,300 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>7,300 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 7,300 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H271-7101-01931 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>안영영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 042) 586-2504 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년07월10일 13시46분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 판암</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>1,400 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>1,400 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 1,400 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H571-7101-01867 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=breakhere></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>판암영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 042)283-2504 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년07월06일 20시15분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 북상주</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>6,600 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>6,600 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 6,600 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H171-7101-04759 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>남상주영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 054-531-3891 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년07월06일 14시35분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 대전</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>5,100 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>5,100 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 5,100 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H371-7101-00684 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>판암영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 042)283-2504 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년07월05일 16시33분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 금강</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>2,000 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>2,000 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 2,000 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H171-7101-03143 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>금강영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 043) 732-3274 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년07월05일 13시13분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 판암</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>2,000 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>2,000 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 2,000 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H171-7101-00657 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>판암영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 042)283-2504 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년07월03일 17시01분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 금강</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>1,900 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>1,900 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 1,900 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H171-7101-02976 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>금강영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 043) 732-3274 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년07월03일 12시36분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 판암</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>1,900 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>1,900 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 1,900 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H171-7101-00386 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>판암영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 042)283-2504 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년06월17일 20시18분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 서대전</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>800 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>800 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 800 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H171-7101-04933 </TD></TR></TBODY></TABLE></DIV>
-<DIV class=bill>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>하이패스는</STRONG> </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 16px" height=20 vAlign=center align=middle><STRONG>빠르고 편리합니다</STRONG> </TD></TR>
-<TR>
-<TD height=10></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 20px" height=30 vAlign=center align=middle><STRONG>영수증</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 12px" height=18 width=80 align=middle><STRONG>한국도로공사</STRONG> </TD>
-<TD style="FONT-SIZE: 12px" align=middle><STRONG>서대전영업소</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>TEL : 042)545-2504 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=16 align=middle>사업자번호 : 129-82-00103 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 12px" height=20 align=middle>2015년06월17일 15시32분 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=20 align=middle><STRONG>입구영업소 : 판암</STRONG> </TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 14px" height=18 width=80 align=middle><STRONG>1 종</STRONG> </TD>
-<TD style="FONT-SIZE: 13px" align=middle><STRONG>1,600 원(카드)</STRONG> </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD height=18>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD height=14 width=80 align=middle>KEC </TD>
-<TD align=middle>1,600 원(카드) </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD>
-<TABLE border=0 cellSpacing=0 cellPadding=0 width=200>
-<TBODY>
-<TR>
-<TD style="FONT-SIZE: 11px" height=16 align=middle>공급가액 : 1,600 원 </TD>
-<TD style="FONT-SIZE: 11px" align=middle>부가세 : 0 원 </TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<TD align=middle>현대카드 </TD></TR>
-<TR>
-<TD align=middle>0190-0200-3890-8992 </TD></TR>
-<TR>
-<TD style="FONT-SIZE: 14px" height=25 align=middle>H572-7201-02755 </TD></TR></TBODY></TABLE></DIV></DIV><!--object id="factory" style="dispaly:none;" classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814" codebase="http://www.meadroid.com/scriptx/ScriptX.cab#Version=6,1,429,14"/--></BODY></HTML>  
+</body></html>
